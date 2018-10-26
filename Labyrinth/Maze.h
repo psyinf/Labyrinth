@@ -52,8 +52,25 @@ public:
 		{
 			for (auto x = 0; x < m.getWidth(); ++x)
 			{
-				std::cout << (m.get(x, y) ? "*" : " ");
+				//std::cout << (m.get(x, y) ? "*" : " ");
 				//std::cout << m.get(x, y);
+				auto v = m.get(x, y);
+				if (v > 0)
+				{
+					std::cout << char(178);
+				}
+				if (v == -1)
+				{
+					std::cout << "_";
+				}
+				if (v == -2)
+				{
+					std::cout << "x";
+				}
+				if (v == 0)
+				{
+					std::cout << " ";
+				}
 			}
 			std::cout << "\n";
 		}

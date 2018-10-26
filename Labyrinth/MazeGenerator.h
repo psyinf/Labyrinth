@@ -2,7 +2,7 @@
 #include "Maze.h"
 #include <vector>
 
-
+class IGeneratorStrategy;
 
 class MazeGenerator
 {
@@ -31,20 +31,17 @@ public:
 		std::vector<uint16_t> mPortalsY;
 
 	};
+	using Chambers = std::vector<Chamber>;
 
+	MazeGenerator() = default;
 
-	MazeGenerator(uint16_t width, uint16_t height, unsigned int seed = 0);
+	Maze makeMaze(uint16_t width, uint16_t height,const IGeneratorStrategy& strategy);
 
-	Maze makeMaze();
-
-protected:
-	void generate(Chamber& c);
 	
 private:
-	std::vector<Chamber> mChambers;
-	uint16_t mWidth	{ 0 };
-	uint16_t mHeight{ 0 };
-	unsigned int mSeed	{ 0 };
+	std::unique_ptr<IGeneratorStrategy> mGeneratorStrategy;
+
+	
 };
 
 

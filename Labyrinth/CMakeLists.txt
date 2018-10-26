@@ -13,6 +13,7 @@ set (APP_NAME Labyrinth)
 add_executable (${APP_NAME} 
 	"Labyrinth.cpp" "Labyrinth.h"
 	"MazeGenerator.cpp" "MazeGenerator.h"
+	"MazeGeneratorStrategies.h"
 	"Helpers.h"
 	"Maze.h"
 

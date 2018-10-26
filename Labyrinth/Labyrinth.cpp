@@ -2,6 +2,7 @@
 //
 #include "Labyrinth.h"
 #include "MazeGenerator.h"
+#include "MazeGeneratorStrategies.h"
 #include <zlib.h>
 #include <cairo/cairo.h>
 #include <windows.h>
@@ -9,9 +10,11 @@
 
 int main()
 {
-	MazeGenerator m(64,64,99);
-	//test simple cairo
-	auto maze = m.makeMaze();
+	MazeGenerator m;
+
+	//QuadGeneratorStrategy qgs(99);
+	LongestAxisStrategy qgs(99);
+	auto maze = m.makeMaze(64, 64, qgs);
 
 	ConsoleMazePainter cmp;
 	cmp.paint(maze);
