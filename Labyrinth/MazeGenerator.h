@@ -10,9 +10,13 @@ public:
 
 	struct Chamber
 	{
-		uint16_t getWidth();
+		uint16_t getWidth() const;
 
-		uint16_t getHeight();
+		uint16_t getHeight() const;
+
+		bool hasPortalX(uint16_t pos) const;
+
+		bool hasPortalY(uint16_t pos) const;
 
 		uint16_t start_x;
 		uint16_t end_x;
@@ -29,7 +33,7 @@ public:
 	Maze makeMaze();
 
 protected:
-	void generate(Chamber& c, bool horizontal_vertical);
+	void generate(Chamber& c);
 private:
 	std::vector<Chamber> mChambers;
 	uint16_t mWidth	{ 0 };
