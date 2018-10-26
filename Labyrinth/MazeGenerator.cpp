@@ -2,13 +2,20 @@
 #include "Helpers.h"
 
 #include <algorithm>
+#include <random>
 
-MazeGenerator::MazeGenerator(uint16_t width, uint16_t height)
+MazeGenerator::MazeGenerator(uint16_t width, uint16_t height, unsigned int seed)
+	:mWidth(std::max<uint16_t>(width, 1u))
+	,mHeight(std::max<uint16_t>(height, 1u))
 {
-	mWidth = std::max<uint16_t>(width, 1u);
-	mHeight = std::max<uint16_t>(height, 1u);
+	
 	Chamber c{ 0, mWidth - 1 , 0, mHeight - 1 };
 	mChambers.push_back(c);
+	if (0 == seed)
+	{
+		std::random_device rd;
+		mSeed = rd();
+	}
 	generate(c, true);
 }
 
@@ -47,7 +54,7 @@ void MazeGenerator::generate(Chamber& c, bool hori_verti)
 	//find a horizontal split
 	if (hori_verti && c.getWidth() >=5 )
 	{
-		auto split = rand_between(c.start_x + 2, c.end_x - 2);
+		auto split = rand_between(c.start_x + 2, c.end_x - 2, mSeed);
 		//make chambers
 		auto left = Chamber{ c.start_x, split, c.start_y, c.end_y };
 		auto right = Chamber{ split, c.end_x, c.start_y, c.end_y };
@@ -55,24 +62,28 @@ void MazeGenerator::generate(Chamber& c, bool hori_verti)
 		//#TODO find random portal(s)
 		
 
-		mChambers.push_back(left);
-		mChambers.push_back(right);
+		//mChambers.push_back(left);
+		//mChambers.push_back(right);
 		generate(left, !hori_verti);
 		generate(right, !hori_verti);
 	}
 	else if(!hori_verti && c.getHeight() >= 5)
 	{
-		auto split = rand_between(c.start_y + 2, c.end_y - 2);
+		auto split = rand_between(c.start_y + 2, c.end_y - 2, mSeed);
 		//make chambers
 		auto top = Chamber{ c.start_x, c.end_x, c.start_y, split };
 		auto bottom = Chamber{ c.start_x, c.end_x, split, c.end_y };
 
 		//#TODO find random portal(s)
 		//recurse
-		mChambers.push_back(top);
-		mChambers.push_back(bottom);
+		//mChambers.push_back(top);
+		//mChambers.push_back(bottom);
 		generate(top, !hori_verti);
 		generate(bottom, !hori_verti);
+	}
+	else
+	{
+		mChambers.push_back(c);
 	}
 	
 

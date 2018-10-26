@@ -9,7 +9,7 @@
 
 int main()
 {
-	MazeGenerator m(64,64);
+	MazeGenerator m(64,64,99);
 	//test simple cairo
 	auto maze = m.makeMaze();
 

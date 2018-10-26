@@ -24,7 +24,7 @@ public:
 	};
 
 
-	MazeGenerator(uint16_t width, uint16_t height);
+	MazeGenerator(uint16_t width, uint16_t height, unsigned int seed = 0);
 
 	Maze makeMaze();
 
@@ -32,8 +32,9 @@ protected:
 	void generate(Chamber& c, bool horizontal_vertical);
 private:
 	std::vector<Chamber> mChambers;
-	uint16_t mWidth{0};
-	uint16_t mHeight{0};
+	uint16_t mWidth	{ 0 };
+	uint16_t mHeight{ 0 };
+	unsigned int mSeed	{ 0 };
 };
 
 
