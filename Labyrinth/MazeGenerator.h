@@ -18,13 +18,18 @@ public:
 
 		bool hasPortalY(uint16_t pos) const;
 
+		void addPortals(const Chamber& c);
+
+		uint16_t findSplitX() const;
+		uint16_t findSplitY() const;
+
 		uint16_t start_x;
 		uint16_t end_x;
 		uint16_t start_y;
 		uint16_t end_y;
 		std::vector<uint16_t> mPortalsX;
 		std::vector<uint16_t> mPortalsY;
-		std::vector<Chamber*> mSubChambers;
+
 	};
 
 
@@ -34,6 +39,7 @@ public:
 
 protected:
 	void generate(Chamber& c);
+	
 private:
 	std::vector<Chamber> mChambers;
 	uint16_t mWidth	{ 0 };
