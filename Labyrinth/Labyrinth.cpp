@@ -1,24 +1,17 @@
-﻿// Labyrinth.cpp : Defines the entry point for the application.
-//
-#include "Labyrinth.h"
+﻿
+#include "ConsoleMazePainter.h"
 #include "MazeGenerator.h"
-#include <zlib.h>
-#include <cairo/cairo.h>
 #include <windows.h>
-
 
 int main()
 {
-	MazeGenerator m(64,64);
-	//test simple cairo
-	auto maze = m.makeMaze();
+    const auto    dimension = 64u;
+    MazeGenerator m(dimension, dimension/2);
+    auto          debug_painter = DebugMazePainter{};
+    auto          maze = m.makeMaze(std::reference_wrapper(debug_painter));
 
-	ConsoleMazePainter cmp;
-	cmp.paint(maze);
-	for (auto i = 0; i < 64; ++i)
-	{
-		std::cout << "_";
-	}
-	std::cout << "Hello CMake." << std::endl;
-	return 0;
+    ConsoleMazePainter cmp;
+    cmp.paint(maze);
+
+    return 0;
 }

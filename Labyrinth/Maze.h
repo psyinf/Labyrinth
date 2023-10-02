@@ -1,12 +1,22 @@
 #pragma once
 #include <iostream>
 #include <vector>
+enum class WallType
+{
+    FREE,
+    WALL_HORIZONTAL,
+    WALL_VERTICAL,
+    // TODO: CORNERS
+	NEW_LINE,
+};
 
 class Maze
 {
-	
+public: 
+
+	//TODO: sparse matrix, skip list etc.
 public:
-	using value_type = int;
+	using value_type = WallType;
 	Maze(uint16_t grid_size_x, uint16_t grid_size_y)
 		: mGridSizeX(grid_size_x)
 		, mGridSizeY(grid_size_y)
@@ -33,30 +43,4 @@ private:
 };
 
 
-class IMazePainter
-{
-public:
-	virtual void paint(const Maze&) = 0;
-};
-
-
-
-class ConsoleMazePainter : public IMazePainter
-{
-
-public:
-	virtual void paint(const Maze& m) override
-	{
-		std::cout << "\n";
-		for (auto y = 0; y < m.getHeight(); ++y)
-		{
-			for (auto x = 0; x < m.getWidth(); ++x)
-			{
-				std::cout << (m.get(x, y) ? "*" : " ");
-				//std::cout << m.get(x, y);
-			}
-			std::cout << "\n";
-		}
-	}
-};
 

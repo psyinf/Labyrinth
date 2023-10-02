@@ -1,28 +1,17 @@
-﻿# CMakeList.txt : CMake project for Labyrinth, include source and define
-# project specific logic here.
-#
-cmake_minimum_required (VERSION 3.8)
-
-find_package(unofficial-cairo CONFIG REQUIRED)
-
-find_package(ZLIB REQUIRED)
-
-# Add source to this project's executable.
+﻿cmake_minimum_required (VERSION 3.8)
 set (APP_NAME Labyrinth)
+set (CMAKE_CXX_STANDARD 20)
 
 add_executable (${APP_NAME} 
-	"Labyrinth.cpp" "Labyrinth.h"
-	"MazeGenerator.cpp" "MazeGenerator.h"
+	"Labyrinth.cpp" 
+	"MazeGenerator.cpp" 
 	"Helpers.h"
 	"Maze.h"
-
+	"MazePainter.h"
+	"ConsoleMazePainter.h"
+	"ConsoleMazePainter.cpp"
 )
 
 target_link_libraries(${APP_NAME} 
 	PRIVATE 
-		unofficial::cairo::cairo 
-		unofficial::cairo::cairo-gobject
-		ZLIB::ZLIB
 )
-
-# TODO: Add tests and install targets if needed.
